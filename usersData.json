@@ -1,0 +1,24 @@
+[
+	{
+		"atribute": 1,
+		"password": "gg123",
+		"id": 1,
+		"name": "Joe",
+		"surname": "Biden",
+		"patronymic": "Hz",
+		"start": {
+			"date": 21,
+			"year": 1988,
+			"month": 12
+		},
+		"passport": {
+			"serial": 4115,
+			"number": 871243
+
+		},
+		"post": "gg@gmail.com",
+		"salary": 45000,
+		"privID": 1
+
+	}
+]
