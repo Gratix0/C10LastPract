@@ -240,7 +240,7 @@ namespace Pract10
             Console.WriteLine("Введите название файла");
             string filename = Console.ReadLine();
             Converter.Ser<List<UserTable>>(allUsers, filename);
-             
+              
         }
     }
 }

@@ -214,7 +214,7 @@ namespace Pract10
                     string filename = Console.ReadLine();
                     Converter.Ser<List<Accounting>>(con, filename);
                     break;
-                     
+                      
                 }
             }
         }

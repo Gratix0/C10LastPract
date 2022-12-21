@@ -15,7 +15,7 @@ namespace Pract10
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string json = JsonConvert.SerializeObject(obj);
             File.WriteAllText(path + "\\" + filename, json);
-        }
+        } 
         public static T Des<T>(string path)
         {
             string json = File.ReadAllText(path);
