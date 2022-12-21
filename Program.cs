@@ -18,7 +18,7 @@ namespace Pract10
             
             string jsonUs = Path.Substring(0, length) + "\\Tables.json";
             List<UserTable> converte = Converter.Des<List<UserTable>>(jsonUs);
-
+ 
             List<(string, string)> logins = new List<(string, string)>();
             
             for (int i = 0; i < con.Count; i++)

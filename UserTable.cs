@@ -12,7 +12,7 @@ namespace Pract10
         public string login;
         public string password;
         public int role;
-        
+         
         
     } 
     
