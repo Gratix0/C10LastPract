@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
-    public class Product
+    public class ALlProduct
     {
         public int id;
         public string name;

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
     internal class Accountant : User
     {
         ModelOfWorker manager = new ModelOfWorker();
-        //Записи бухгалтерии системы
         List<Accounting> allBuh = new List<Accounting>();
         internal enum Post
         {
@@ -51,7 +50,6 @@ namespace Magazine
                     Console.Clear();
                     Search();
                 }
-
                 else if (key.Key == (ConsoleKey)Post.F3)
                 {
                     Console.Clear();
@@ -72,7 +70,6 @@ namespace Magazine
                     {
                         pose--;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.DownArrow)
                 {
@@ -84,7 +81,6 @@ namespace Magazine
                     {
                         pose++;
                     }
-
                 }
             }
         }
@@ -100,7 +96,7 @@ namespace Magazine
             Console.WriteLine("Введите сумму покупки");
             int sumPrice = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите вычитать или прибавлять (1 или 0)");
-            int pribavka = Convert.ToInt32(Console.ReadLine());
+            int adds = Convert.ToInt32(Console.ReadLine());
 
             int id = con[con.Count - 1].id + 1;
 
@@ -108,7 +104,7 @@ namespace Magazine
             newAcc.id = id;
             newAcc.name = name;
             newAcc.sumPrice = sumPrice;
-            newAcc.pribavka = pribavka;
+            newAcc.adds = adds;
 
             con.Add(newAcc);
 
@@ -153,7 +149,7 @@ namespace Magazine
                     Console.WriteLine(acc.id);
                     Console.WriteLine(acc.name);
                     Console.WriteLine(acc.sumPrice);
-                    Console.WriteLine(acc.pribavka);
+                    Console.WriteLine(acc.adds);
                     break;
                 }
             }
@@ -172,7 +168,7 @@ namespace Magazine
             Console.WriteLine("Введите сумму покупки");
             newAcc.sumPrice = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите вычитать или прибавлять (1 или 0)");
-            newAcc.pribavka = Convert.ToInt32(Console.ReadLine());
+            newAcc.adds = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Введите id записи");
             newAcc.id = Convert.ToInt32(Console.ReadLine());
 
@@ -184,7 +180,7 @@ namespace Magazine
                     Console.WriteLine(acc.id);
                     Console.WriteLine(acc.name);
                     Console.WriteLine(acc.sumPrice);
-                    Console.WriteLine(acc.pribavka);
+                    Console.WriteLine(acc.adds);
                     break;
                 }
             }
@@ -212,12 +208,11 @@ namespace Magazine
                     con.Remove(acc);
                     vrem.name = name;
                     vrem.sumPrice = sumPrice;
-                    vrem.pribavka = pribavka;
+                    vrem.adds = pribavka;
 
                     Console.WriteLine("Введите название файла");
                     string filename = Console.ReadLine();
                     Converter.Ser<List<Accounting>>(con, filename);
-
                     break;
                 }
             }

@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
-    internal class WarehouseManager : User
+    internal class UserWarehouseManager : User
     {
+        
         ModelOfWorker warehouseManager = new ModelOfWorker();
-        //Товары на складе
-        List<Product> allProducts = new List<Product>();
-
-        public WarehouseManager(ModelOfWorker warehouseManager, List<Product> allProducts)
+        //Product in warehouse
+        List<ALlProduct> allProducts = new List<ALlProduct>();
+        public UserWarehouseManager(ModelOfWorker warehouseManager, List<ALlProduct> allProducts)
         {
             this.warehouseManager = warehouseManager;
             this.allProducts = allProducts;
         }
-
         internal enum Post
         {
             F1 = ConsoleKey.F1,
@@ -27,18 +26,46 @@ namespace Magazine
             Enter = ConsoleKey.Enter,
             UpArrow = ConsoleKey.UpArrow,
             DownArrow = ConsoleKey.DownArrow,
-
         }
+        public void Create()
+        {
+            string startupPath = Directory.GetCurrentDirectory();
+            int len = startupPath.Length - 17;
+            string json = startupPath.Substring(0, len) + "\\Product.json";
+            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
 
+            Console.WriteLine("Введите название");
+            string name = Console.ReadLine();
+            Console.WriteLine("Введите цену");
+            int price = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите количество");
+            int count = Convert.ToInt32(Console.ReadLine());
+
+            int id = con[con.Count - 1].id + 1;
+
+            ALlProduct prod = new ALlProduct();
+            prod.id = id;
+            prod.name = name;
+            prod.price = price;
+            prod.count = count;
+
+            con.Add(prod);
+            allProducts.Insert(id, prod);
+
+            Console.WriteLine("Введите название файла");
+            string filename = Console.ReadLine();
+            Converter.Ser<List<ALlProduct>>(con, filename);
+        }
+        
         public void Interface()
         {
-            int pose = 2;
+            int pos = 2;
             int max = allProducts.Count() + 1;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(pose);
-                Console.SetCursorPosition(0, pose);
+                Console.WriteLine(pos);
+                Console.SetCursorPosition(0, pos);
                 Console.WriteLine("->");
 
                 InterfaceForUsers.PrintInterface(warehouseManager);
@@ -63,83 +90,48 @@ namespace Magazine
                 else if (key.Key == (ConsoleKey)Post.F4)
                 {
                     Console.Clear();
-                    Read(pose);
+                    Read(pos);
                 }
                 else if (key.Key == (ConsoleKey)Post.UpArrow)
                 {
-                    if (pose <= 2)
+                    if (pos <= 2)
                     {
-                        pose += max - 2;
+                        pos += max - 2;
                     }
                     else
                     {
-                        pose--;
+                        pos--;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.DownArrow)
                 {
-                    if (pose >= max)
+                    if (pos >= max)
                     {
-                        pose -= max - 2;
+                        pos -= max - 2;
                     }
                     else
                     {
-                        pose++;
+                        pos++;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.Enter)
                 {
                     Console.Clear();
-                    Product product = allProducts[pose - 2];
-                    Update(product.id);
+                    ALlProduct aLlProduct = allProducts[pos - 2];
+                    Update(aLlProduct.id);
                 }
-
-
             }
         }
-        public void Create()
-        {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Product.json";
-            List<Product> con = Converter.Des<List<Product>>(json);
-
-            Console.WriteLine("Введите название");
-            string name = Console.ReadLine();
-            Console.WriteLine("Введите цену");
-            int price = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите количество");
-            int count = Convert.ToInt32(Console.ReadLine());
-
-            int id = con[con.Count - 1].id + 1;
-
-            Product prod = new Product();
-            prod.id = id;
-            prod.name = name;
-            prod.price = price;
-            prod.count = count;
-
-            con.Add(prod);
-            allProducts.Insert(id, prod);
-
-            Console.WriteLine("Введите название файла");
-            string filename = Console.ReadLine();
-            Converter.Ser<List<Product>>(con, filename);
-        }
-
+        
         public void Delete()
         {
-            //Усечение строки до файла с юзерами
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Product.json";
-            List<Product> con = Converter.Des<List<Product>>(json);
+            string Path = Directory.GetCurrentDirectory();
+            int len = Path.Length - 17;
+            string json = Path.Substring(0, len) + "\\Product.json";
+            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
             List<int> ids = new List<int>();
-
-            //Добавление в список айдишников юзеров
-            foreach (Product user in con)
+            
+            foreach (ALlProduct user in con)
             {
                 ids.Add(user.id);
             }
@@ -148,16 +140,14 @@ namespace Magazine
             Console.WriteLine("Введите id товара, который хотите удалить");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            //Проверка на существующий айдишник
             if (ids.Contains(id))
             {
-                Product product = con[ids.IndexOf(id)];
-                con.Remove(product);
+                ALlProduct aLlProduct = con[ids.IndexOf(id)];
+                con.Remove(aLlProduct);
 
                 Console.WriteLine("Введите название файла");
                 string filename = Console.ReadLine();
-                Converter.Ser<List<Product>>(con, filename);
-
+                Converter.Ser<List<ALlProduct>>(con, filename);
             }
             else
             {
@@ -171,12 +161,11 @@ namespace Magazine
         {
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
-            foreach (Product i in allProducts)
+            foreach (ALlProduct i in allProducts)
             {
                 ids.Add(i.id);
             }
-            Product user = allProducts[ids.IndexOf((id))];
+            ALlProduct user = allProducts[ids.IndexOf((id))];
             Console.WriteLine(user.id);
             Console.WriteLine(user.name);
             Console.WriteLine(user.price);
@@ -198,19 +187,19 @@ namespace Magazine
             Console.WriteLine("Введите количество товара на складе");
             int count = Convert.ToInt32(Console.ReadLine());
 
-            Product products = new Product();
-            products.id = id;
-            products.name = name;
-            products.price = price;
-            products.count = count;
+            ALlProduct aLlProducts = new ALlProduct();
+            aLlProducts.id = id;
+            aLlProducts.name = name;
+            aLlProducts.price = price;
+            aLlProducts.count = count;
 
-            if (allProducts.Contains(products))
+            if (allProducts.Contains(aLlProducts))
             {
                 Console.Clear();
-                Console.WriteLine(products.id);
-                Console.WriteLine(products.name);
-                Console.WriteLine(products.price);
-                Console.WriteLine(products.count);
+                Console.WriteLine(aLlProducts.id);
+                Console.WriteLine(aLlProducts.name);
+                Console.WriteLine(aLlProducts.price);
+                Console.WriteLine(aLlProducts.count);
                 Console.WriteLine();
 
                 Console.WriteLine("Нажмите на любую кнопку что бы выйти");
@@ -227,9 +216,8 @@ namespace Magazine
         public void Update(int id)
         {
             List<int> ids = new List<int>();
-
-            //Добавление в список айдишников юзеров
-            foreach (Product i in allProducts)
+            
+            foreach (ALlProduct i in allProducts)
             {
                 ids.Add(i.id);
             }
@@ -241,17 +229,16 @@ namespace Magazine
             Console.WriteLine("Введите количество товара на складе");
             int count = Convert.ToInt32(Console.ReadLine());
 
-            Product product = allProducts[ids.IndexOf((id))];
-            allProducts.Remove(product);
-            product.name = name;
-            product.price = price;
-            product.count = count;
-
-
-            allProducts.Insert(id, product);
+            ALlProduct aLlProduct = allProducts[ids.IndexOf((id))];
+            allProducts.Remove(aLlProduct);
+            aLlProduct.name = name;
+            aLlProduct.price = price;
+            aLlProduct.count = count;
+            
+            allProducts.Insert(id, aLlProduct);
             Console.WriteLine("Введите название файла");
             string filename = Console.ReadLine();
-            Converter.Ser<List<Product>>(allProducts, filename);
+            Converter.Ser<List<ALlProduct>>(allProducts, filename);
         }
     }
 }

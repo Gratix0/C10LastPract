@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
     public class Accounting
     {
         public int id;
         public string name;
         public int sumPrice;
-        public int pribavka;
-
+        public int adds;
     }
 }

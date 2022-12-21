@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
     public class DateOfStart
     {

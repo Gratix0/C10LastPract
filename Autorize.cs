@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Magazine
+namespace Pract10
 {
     internal class Autorize
     {
@@ -13,8 +13,6 @@ namespace Magazine
 
         public static (string, string, bool) PasswordInput(string name, List<(string, string)> workers)
         {
-
-            //Ввод пароля, да не обычного, а типа пассворд бокса!
             string inpt = string.Empty;
             while (!workers.Contains((name, inpt)))
             {
@@ -22,17 +20,14 @@ namespace Magazine
                 inpt = string.Empty;
                 while (true)
                 {
-                    var key = Console.ReadKey(true);//не отображаем клавишу - true
-
-                    if (key.Key == ConsoleKey.Enter) break; //enter - выходим из цикла
-
-                    Console.Write("*");//рисуем звезду вместо нее
-                    inpt += key.KeyChar; //копим в пароль символы
+                    var key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Enter) break; 
+                    Console.Write("*");
+                    inpt += key.KeyChar;
                 }
-                
                 if (!workers.Contains((name, inpt)))
                 {
-                    Console.WriteLine("Написал хуйню какую-то");
+                    Console.WriteLine("Ошибка");
                     break;
                 }
                 Console.WriteLine();
@@ -45,17 +40,15 @@ namespace Magazine
             {
                 return (name, inpt, true);
             }
-
         }
-
-        public static int Aut(List<(string, string)> workers)
+        public static int Autoriz(List<(string, string)> workers)
         {
             while (true)
             {
                 //Ввод логина юзера
                 Console.WriteLine("Введите имя");
                 string name= Console.ReadLine();
-
+                
                 var password = PasswordInput(name, workers);
                 if (password.Item3 == false)
                 {
@@ -67,8 +60,6 @@ namespace Magazine
                     return workers.IndexOf((password.Item1, password.Item2));
                 }
             }
-            
-
         }
     }
 }

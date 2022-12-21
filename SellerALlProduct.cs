@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
-    public class SellerProduct: Product
+    public class SellerALlProduct: ALlProduct
     {
-        public int tookCount;
+        public int UseCount;
     }
 }

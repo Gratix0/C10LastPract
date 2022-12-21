@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Magazine.Admin;
+using static Pract10.Admin;
 
-namespace Magazine
+namespace Pract10
 {
     internal class Admin : User
     {
         ModelOfWorker admin = new ModelOfWorker();
-        //Юзеры системы
+        //All users
         List<UserTable> allUsers = new List<UserTable>();
         internal enum Post
         {
@@ -21,7 +21,6 @@ namespace Magazine
             Enter = ConsoleKey.Enter,
             UpArrow = ConsoleKey.UpArrow,
             DownArrow = ConsoleKey.DownArrow,
-
         }
         public Admin(ModelOfWorker worker, List<UserTable> allUsers)
         {
@@ -30,13 +29,13 @@ namespace Magazine
         }
         public void Interface()
         {
-            int pose = 2;
+            int pos = 2;
             int max = allUsers.Count() + 1;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(pose);
-                Console.SetCursorPosition(0, pose);
+                Console.WriteLine(pos);
+                Console.SetCursorPosition(0, pos);
                 Console.WriteLine("->");
 
                 InterfaceForUsers.PrintInterface(admin);
@@ -52,7 +51,6 @@ namespace Magazine
                     Console.Clear();
                     Search();
                 }
-
                 else if (key.Key == (ConsoleKey)Post.F3)
                 {
                     Console.Clear();
@@ -61,51 +59,43 @@ namespace Magazine
                 else if (key.Key == (ConsoleKey)Post.F4)
                 {
                     Console.Clear();
-                    Read(pose);
+                    Read(pos);
                 }
                 else if (key.Key == (ConsoleKey)Post.UpArrow)
                 {
-                    if (pose <= 2)
+                    if (pos <= 2)
                     {
-                        pose += max - 2;
+                        pos += max - 2;
                     }
                     else
                     {
-                        pose--;
+                        pos--;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.DownArrow)
                 {
-                    if (pose >= max)
+                    if (pos >= max)
                     {
-                        pose -= max - 2 ;
+                        pos -= max - 2 ;
                     }
                     else
                     {
-                        pose++;
+                        pos++;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.Enter)
                 {
                     Console.Clear();
-                    UserTable user = allUsers[pose - 2];
+                    UserTable user = allUsers[pos - 2];
                     Update(user.id);
                 }
-
-             
             }
-            
-
-
-
         }
         public void Create()
         {
             string startupPath = Directory.GetCurrentDirectory();
             int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\UserTables.json";
+            string json = startupPath.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
 
             Console.WriteLine("Введите логин");
@@ -128,29 +118,27 @@ namespace Magazine
             Console.WriteLine("Введите название файла");
             string filename = Console.ReadLine();
             Converter.Ser<List<UserTable>>(con, filename);
-
         }
 
         public void Delete()
         {
-            //Усечение строки до файла с юзерами
+            //Truncating a string to a file with users
             string startupPath = Directory.GetCurrentDirectory();
             int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\UserTables.json";
+            string json = startupPath.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding to the list id of users
             foreach (UserTable user in con)
             {
                 ids.Add(user.id);
             }
             
-
             Console.WriteLine("Введите id пользователя, которого хотите удалить");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            //Проверка на существующий айдишник
+            //Checking for an existing ID
             if (ids.Contains(id))
             {
                 UserTable user = con[ids.IndexOf(id)];
@@ -159,7 +147,6 @@ namespace Magazine
                 Console.WriteLine("Введите название файла");
                 string filename = Console.ReadLine();
                 Converter.Ser<List<UserTable>>(con, filename);
-
             }
             else
             {
@@ -167,15 +154,13 @@ namespace Magazine
                 Console.ReadKey();
                 Console.Clear();
             }
-
-
         }
 
         public void Read(int id)
         {
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (UserTable i in allUsers)
             {
                 ids.Add(i.id);
@@ -189,8 +174,6 @@ namespace Magazine
 
             Console.WriteLine("Нажмите на любую кнопку что бы выйти");
             Console.ReadKey();
-            
-
         }
 
         public void Search()
@@ -232,10 +215,9 @@ namespace Magazine
 
         public void Update(int userUpdate)
         {
-
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of IDs
             foreach (UserTable i in allUsers)
             {
                 ids.Add(i.id);
@@ -258,8 +240,6 @@ namespace Magazine
             Console.WriteLine("Введите название файла");
             string filename = Console.ReadLine();
             Converter.Ser<List<UserTable>>(allUsers, filename);
-
-
         }
     }
 }

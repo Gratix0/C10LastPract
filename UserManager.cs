@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
     internal class Manager : User
     {
         ModelOfWorker manager = new ModelOfWorker();
-        //Юзеры системы
+        //Users
         List<ModelOfWorker> allUsers = new List<ModelOfWorker>();
         internal enum Post
         {
@@ -20,7 +20,6 @@ namespace Magazine
             Enter = ConsoleKey.Enter,
             UpArrow = ConsoleKey.UpArrow,
             DownArrow = ConsoleKey.DownArrow,
-
         }
         public Manager(ModelOfWorker worker, List<ModelOfWorker> allUsers)
         {
@@ -51,7 +50,6 @@ namespace Magazine
                     Console.Clear();
                     Search();
                 }
-
                 else if (key.Key == (ConsoleKey)Post.F3)
                 {
                     Console.Clear();
@@ -72,7 +70,6 @@ namespace Magazine
                     {
                         pose--;
                     }
-
                 }
                 else if (key.Key == (ConsoleKey)Post.DownArrow)
                 {
@@ -84,7 +81,6 @@ namespace Magazine
                     {
                         pose++;
                     }
-
                 }
             }
         }
@@ -92,7 +88,7 @@ namespace Magazine
         {
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (ModelOfWorker i in allUsers)
             {
                 ids.Add(i.id);
@@ -136,15 +132,14 @@ namespace Magazine
 
             Console.WriteLine("Введите айди пользователя к аккаунту которого хотите привязать рабочего");
             int privID = Convert.ToInt32(Console.ReadLine());
-
-
+            
             string startupPath = Directory.GetCurrentDirectory();
             int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\UserTables.json";
+            string json = startupPath.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> idsUsers = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (UserTable user in con)
             {
                 idsUsers.Add(user.id);
@@ -163,8 +158,8 @@ namespace Magazine
                 worker.start.date = birthDate;
                 worker.start.month = birthMonth;
                 worker.start.year = birthYear;
-                worker.passport.serial = serial;
-                worker.passport.number = number;
+                worker.userPassrot.serial = serial;
+                worker.userPassrot.number = number;
                 worker.post = post;
                 worker.salary = salary;
                 worker.privID = privID;
@@ -176,7 +171,7 @@ namespace Magazine
             }
             else
             {
-                Console.WriteLine("Такого юзера для привзки не существует, нажмите любую кнопку для выхода в меню");
+                Console.WriteLine("Такого пользователя для не существует, нажмите любую кнопку для выхода в меню");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -184,14 +179,14 @@ namespace Magazine
 
         public void Delete()
         {
-            //Усечение строки до файла с юзерами
+            //Truncating a string to a file with users
             string startupPath = Directory.GetCurrentDirectory();
             int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\usersData.json";
+            string json = startupPath.Substring(0, len) + "\\Data.json";
             List<ModelOfWorker> con = Converter.Des<List<ModelOfWorker>>(json);
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (ModelOfWorker user in con)
             {
                 ids.Add(user.id);
@@ -201,7 +196,7 @@ namespace Magazine
             Console.WriteLine("Введите id пользователя, которого хотите удалить");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            //Проверка на существующий айдишник
+            //ID check 
             if (ids.Contains(id))
             {
                 ModelOfWorker user = con[ids.IndexOf(id)];
@@ -224,14 +219,14 @@ namespace Magazine
         {
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (ModelOfWorker i in allUsers)
             {
                 ids.Add(i.id);
             }
             ModelOfWorker user = allUsers[ids.IndexOf((id))];
 
-            Console.WriteLine("Базовая инфа");
+            Console.WriteLine("Информация");
             Console.WriteLine(user.id);
             Console.WriteLine(user.name);
             Console.WriteLine(user.surname);
@@ -244,8 +239,8 @@ namespace Magazine
             Console.WriteLine(user.start.year);
             Console.WriteLine();
             Console.WriteLine("Паспорт");
-            Console.WriteLine(user.passport.serial);
-            Console.WriteLine(user.passport.number);
+            Console.WriteLine(user.userPassrot.serial);
+            Console.WriteLine(user.userPassrot.number);
             Console.WriteLine();
             Console.WriteLine("Остальное");
             Console.WriteLine(user.post);
@@ -308,8 +303,8 @@ namespace Magazine
             worker.start.date = birthDate;
             worker.start.month = birthMonth;
             worker.start.year = birthYear;
-            worker.passport.serial = serial;
-            worker.passport.number = number;
+            worker.userPassrot.serial = serial;
+            worker.userPassrot.number = number;
             worker.post = post;
             worker.salary = salary;
 
@@ -325,8 +320,8 @@ namespace Magazine
                 Console.WriteLine(worker.start.date);
                 Console.WriteLine(worker.start.month);
                 Console.WriteLine(worker.start.year);
-                Console.WriteLine(worker.passport.serial);
-                Console.WriteLine(worker.passport.number);
+                Console.WriteLine(worker.userPassrot.serial);
+                Console.WriteLine(worker.userPassrot.number);
                 Console.WriteLine(worker.post);
                 Console.WriteLine(worker.salary);
                 Console.WriteLine();
@@ -340,14 +335,13 @@ namespace Magazine
                 Console.ReadKey();
                 Console.Clear();
             }
-
         }
 
         public void Update(int id)
         {
             List<int> ids = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (ModelOfWorker i in allUsers)
             {
                 ids.Add(i.id);
@@ -395,11 +389,11 @@ namespace Magazine
 
             string startupPath = Directory.GetCurrentDirectory();
             int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\UserTables.json";
+            string json = startupPath.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> idsUsers = new List<int>();
 
-            //Добавление в список айдишников юзеров
+            //Adding users to the list of ID
             foreach (UserTable user in con)
             {
                 idsUsers.Add(user.id);
@@ -417,8 +411,8 @@ namespace Magazine
                 worker.start.date = birthDate;
                 worker.start.month = birthMonth;
                 worker.start.year = birthYear;
-                worker.passport.serial = serial;
-                worker.passport.number = number;
+                worker.userPassrot.serial = serial;
+                worker.userPassrot.number = number;
                 worker.post = post;
                 worker.salary = salary;
                 worker.privID = privID;
@@ -434,9 +428,6 @@ namespace Magazine
                 Console.ReadKey();
                 Console.Clear();
             }
-
-
-            
         }
     }
 }

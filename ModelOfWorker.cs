@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Magazine
+namespace Pract10
 {
     public class ModelOfWorker
     {
@@ -15,7 +15,7 @@ namespace Magazine
         public string surname;
         public string patronymic;
         public DateOfStart start = new DateOfStart();
-        public Passport passport = new Passport();
+        public UserPassrot userPassrot = new UserPassrot();
         public string post;
         public int salary;
         public int privID;
