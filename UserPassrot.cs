@@ -9,6 +9,6 @@ namespace Pract10
     public class UserPassrot
     {
         public int serial;
-        public int number;
+        public int number; 
     }
 }

@@ -14,3 +14,4 @@ namespace Pract10
         public int adds; 
     }
 }
+ 
