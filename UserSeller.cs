@@ -203,6 +203,6 @@ namespace Pract10
             {
                 Console.WriteLine($"Название: {i.name},  Количество: {i.count}  Цена за шт.: {i.price}");
             }
-        }
+        } 
     }
 }
