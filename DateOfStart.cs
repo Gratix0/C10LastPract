@@ -10,6 +10,6 @@ namespace Pract10
     {
         public int date;
         public int year;
-        public int month;
+        public int month; 
     }
 }

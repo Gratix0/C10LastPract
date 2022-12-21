@@ -416,7 +416,7 @@ namespace Pract10
                 worker.post = post;
                 worker.salary = salary;
                 worker.privID = privID;
- 
+  
                 allUsers.Add(worker);
                 Console.WriteLine("Введите название файла");
                 string filename = Console.ReadLine();

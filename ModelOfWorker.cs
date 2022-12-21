@@ -19,6 +19,6 @@ namespace Pract10
         public string post;
         public int salary;
         public int privID;
-         
+          
     }
 }

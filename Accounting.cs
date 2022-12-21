@@ -11,6 +11,6 @@ namespace Pract10
         public int id;
         public string name;
         public int sumPrice;
-        public int adds;
+        public int adds; 
     }
 }
