@@ -91,21 +91,60 @@ namespace Pract10
                 }
             }
         }
+        public void Search()
+        {
+            int id; string login; string password; int role;
+            Console.WriteLine("Введите ID");
+            id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter login");
+            login = Console.ReadLine();
+            Console.WriteLine("Password");
+            password = Console.ReadLine();
+            Console.WriteLine("Role");
+            role = Convert.ToInt32(Console.ReadLine());
+
+            UserTable user = new UserTable();
+            user.id = id;
+            user.login = login;
+            user.password = password;
+            user.role = role;
+
+            if (allUsers.Contains(user))
+            {
+                Console.Clear();
+                Console.WriteLine(user.id);
+                Console.WriteLine(user.login);
+                Console.WriteLine(user.role);
+                Console.WriteLine(user.password);
+                Console.WriteLine();
+
+                Console.WriteLine("Press any button to exit");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("There is no such user, press any key to exit");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
         public void Create()
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Tables.json";
+            string Path; int len; string json; int role; int id; string filename;
+            
+            Path = Directory.GetCurrentDirectory();
+            len = Path.Length - 17;
+            json = Path.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
 
-            Console.WriteLine("Введите логин");
+            Console.WriteLine("Enter login");
             string login = Console.ReadLine();
-            Console.WriteLine("Введите пароль польвателя");
+            Console.WriteLine("Enter password");
             string password = Console.ReadLine();
-            Console.WriteLine("Введите роль польвателя");
-            int role = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter role");
+            role = Convert.ToInt32(Console.ReadLine());
 
-            int id = con[con.Count - 1].id + 1;
+            id = con[con.Count - 1].id + 1;
 
             UserTable newUser = new UserTable();
             newUser.id = id;
@@ -116,16 +155,18 @@ namespace Pract10
             con.Add(newUser);
 
             Console.WriteLine("Введите название файла");
-            string filename = Console.ReadLine();
+            filename = Console.ReadLine();
             Converter.Ser<List<UserTable>>(con, filename);
         }
 
         public void Delete()
         {
+            string startupPath; int len; string json; int id; string filename;
+            
             //Truncating a string to a file with users
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Tables.json";
+            startupPath = Directory.GetCurrentDirectory();
+            len = startupPath.Length - 17;
+            json = startupPath.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> ids = new List<int>();
 
@@ -135,8 +176,8 @@ namespace Pract10
                 ids.Add(user.id);
             }
             
-            Console.WriteLine("Введите id пользователя, которого хотите удалить");
-            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the id of the user you want to delete");
+            id = Convert.ToInt32(Console.ReadLine());
 
             //Checking for an existing ID
             if (ids.Contains(id))
@@ -144,13 +185,13 @@ namespace Pract10
                 UserTable user = con[ids.IndexOf(id)];
                 con.Remove(user);
 
-                Console.WriteLine("Введите название файла");
-                string filename = Console.ReadLine();
+                Console.WriteLine("Enter file name");
+                filename = Console.ReadLine();
                 Converter.Ser<List<UserTable>>(con, filename);
             }
             else
             {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
+                Console.WriteLine("There is no such user, press any key to exit");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -175,46 +216,10 @@ namespace Pract10
             Console.WriteLine("Нажмите на любую кнопку что бы выйти");
             Console.ReadKey();
         }
-
-        public void Search()
-        {
-            Console.WriteLine("Введите ID");
-            int id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите логин");
-            string login = Console.ReadLine();
-            Console.WriteLine("Введите пароль польвателя");
-            string password = Console.ReadLine();
-            Console.WriteLine("Введите роль польвателя");
-            int role = Convert.ToInt32(Console.ReadLine());
-
-            UserTable user = new UserTable();
-            user.id = id;
-            user.login = login;
-            user.password = password;
-            user.role = role;
-
-            if (allUsers.Contains(user))
-            {
-                Console.Clear();
-                Console.WriteLine(user.id);
-                Console.WriteLine(user.login);
-                Console.WriteLine(user.role);
-                Console.WriteLine(user.password);
-                Console.WriteLine();
-
-                Console.WriteLine("Нажмите на любую кнопку что бы выйти");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
-                Console.ReadKey();
-                Console.Clear();
-            }
-        }
-
         public void Update(int userUpdate)
         {
+            string login; string password; int role; string filename;
+            
             List<int> ids = new List<int>();
 
             //Adding users to the list of IDs
@@ -223,12 +228,12 @@ namespace Pract10
                 ids.Add(i.id);
             }
 
-            Console.WriteLine("Введите новый логин");
-            string login = Console.ReadLine();
-            Console.WriteLine("Введите новый пароль польвателя");
-            string password = Console.ReadLine();
-            Console.WriteLine("Введите новую роль польвателя");
-            int role = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter a new login");
+            login = Console.ReadLine();
+            Console.WriteLine("Enter a new user password");
+            password = Console.ReadLine();
+            Console.WriteLine("Enter a new user role");
+            role = Convert.ToInt32(Console.ReadLine());
 
             UserTable user = allUsers[ids.IndexOf((userUpdate))];
             allUsers.Remove(user);
@@ -237,8 +242,8 @@ namespace Pract10
             user.role = role;
 
             allUsers.Add(user);
-            Console.WriteLine("Введите название файла");
-            string filename = Console.ReadLine();
+            Console.WriteLine("Enter file name");
+            filename = Console.ReadLine();
             Converter.Ser<List<UserTable>>(allUsers, filename);
               
         }

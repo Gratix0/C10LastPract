@@ -28,13 +28,13 @@ namespace Pract10
         }
         public void Interface()
         {
-            int pose = 2;
+            int pos = 2;
             int max = allBuh.Count() + 1;
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(pose);
-                Console.SetCursorPosition(0, pose);
+                Console.WriteLine(pos);
+                Console.SetCursorPosition(0, pos);
                 Console.WriteLine("->");
 
                 InterfaceForUsers.PrintInterface(manager);
@@ -58,47 +58,49 @@ namespace Pract10
                 else if (key.Key == (ConsoleKey)Post.F4)
                 {
                     Console.Clear();
-                    Read(pose);
+                    Read(pos);
                 }
                 else if (key.Key == (ConsoleKey)Post.UpArrow)
                 {
-                    if (pose <= 2)
+                    if (pos <= 2)
                     {
-                        pose += max - 2;
+                        pos += max - 2;
                     }
                     else
                     {
-                        pose--;
+                        pos--;
                     }
                 }
                 else if (key.Key == (ConsoleKey)Post.DownArrow)
                 {
-                    if (pose >= max)
+                    if (pos >= max)
                     {
-                        pose -= max - 2;
+                        pos -= max - 2;
                     }
                     else
                     {
-                        pose++;
+                        pos++;
                     }
                 }
             }
         }
         public void Create()
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Accounting.json";
+            string path; int len; string json; string name; int sumPrice; int adds; int id; string filename;
+            
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Accounting.json";
             List<Accounting> con = Converter.Des<List<Accounting>>(json);
 
-            Console.WriteLine("Введите название товара");
-            string name = Console.ReadLine();
-            Console.WriteLine("Введите сумму покупки");
-            int sumPrice = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите вычитать или прибавлять (1 или 0)");
-            int adds = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter product name");
+            name = Console.ReadLine();
+            Console.WriteLine("Enter purchase amount");
+            sumPrice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter subtract or add (1 or 0)");
+            adds = Convert.ToInt32(Console.ReadLine());
 
-            int id = con[con.Count - 1].id + 1;
+            id = con[con.Count - 1].id + 1;
 
             Accounting newAcc = new Accounting();
             newAcc.id = id;
@@ -108,27 +110,28 @@ namespace Pract10
 
             con.Add(newAcc);
 
-            Console.WriteLine("Введите название файла");
-            string filename = Console.ReadLine();
+            Console.WriteLine("Enter file name");
+            filename = Console.ReadLine();
             Converter.Ser<List<Accounting>>(con, filename);
         }
 
         public void Delete()
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Accounting.json";
+            string path; int len; string json; int id; string filename; 
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Accounting.json";
             List<Accounting> con = Converter.Des<List<Accounting>>(json);
 
-            int id = Convert.ToInt32(Console.ReadLine());
+            id = Convert.ToInt32(Console.ReadLine());
 
             foreach (Accounting acc in con)
             {
                 if (acc.id == id)
                 {
                     con.Remove(acc);
-                    Console.WriteLine("Введите название файла");
-                    string filename = Console.ReadLine();
+                    Console.WriteLine("Enter the file");
+                    filename = Console.ReadLine();
                     Converter.Ser<List<Accounting>>(con, filename);
                     break;
                 }
@@ -137,9 +140,11 @@ namespace Pract10
 
         public void Read(int id)
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Accounting.json";
+            string path; int len; string json;
+            
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Accounting.json";
             List<Accounting> con = Converter.Des<List<Accounting>>(json);
 
             foreach (Accounting acc in con)
@@ -157,19 +162,21 @@ namespace Pract10
 
         public void Search()
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Accounting.json";
+            string path; int len; string json;
+            
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Accounting.json";
             List<Accounting> con = Converter.Des<List<Accounting>>(json);
 
             Accounting newAcc = new Accounting();
-            Console.WriteLine("Введите название товара");
+            Console.WriteLine("Enter product name");
             newAcc.name = Console.ReadLine();
-            Console.WriteLine("Введите сумму покупки");
+            Console.WriteLine("Enter purchase amount");
             newAcc.sumPrice = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите вычитать или прибавлять (1 или 0)");
+            Console.WriteLine("Enter subtract or add (1 or 0)");
             newAcc.adds = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите id записи");
+            Console.WriteLine("Enter post id");
             newAcc.id = Convert.ToInt32(Console.ReadLine());
 
             foreach (Accounting acc in con)
@@ -188,9 +195,11 @@ namespace Pract10
 
         public void Update(int id)
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Accounting.json";
+            string path; int len; string json; string name; int sum; int adds; string filename;
+            
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Accounting.json";
             List<Accounting> con = Converter.Des<List<Accounting>>(json);
 
             foreach (Accounting acc in con)
@@ -198,20 +207,20 @@ namespace Pract10
                 if (acc.id == id)
                 {
                     Console.WriteLine("Введите название товара");
-                    string name = Console.ReadLine();
+                    name = Console.ReadLine();
                     Console.WriteLine("Введите сумму покупки");
-                    int sumPrice = Convert.ToInt32(Console.ReadLine());
+                    sum = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("Введите вычитать или прибавлять (1 или 0)");
-                    int pribavka = Convert.ToInt32(Console.ReadLine());
+                    adds = Convert.ToInt32(Console.ReadLine());
 
                     Accounting vrem = acc; 
                     con.Remove(acc);
                     vrem.name = name;
-                    vrem.sumPrice = sumPrice;
-                    vrem.adds = pribavka;
+                    vrem.sumPrice = sum;
+                    vrem.adds = adds;
 
                     Console.WriteLine("Введите название файла");
-                    string filename = Console.ReadLine();
+                    filename = Console.ReadLine();
                     Converter.Ser<List<Accounting>>(con, filename);
                     break;
                       

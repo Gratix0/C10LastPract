@@ -16,7 +16,7 @@ namespace Pract10
             string inpt = string.Empty;
             while (!workers.Contains((name, inpt)))
             {
-                Console.Write("Введите пароль: ");
+                Console.Write("Enter the password: ");
                 inpt = string.Empty;
                 while (true)
                 {
@@ -27,7 +27,7 @@ namespace Pract10
                 }
                 if (!workers.Contains((name, inpt)))
                 {
-                    Console.WriteLine("Ошибка");
+                    Console.WriteLine("Error");
                     break;
                 }
                 Console.WriteLine();
@@ -45,15 +45,13 @@ namespace Pract10
         {
             while (true)
             {
-                //Ввод логина юзера
-                Console.WriteLine("Введите имя");
-                string name= Console.ReadLine();
+                Console.WriteLine("Enter the name");
+                string name = Console.ReadLine();
                 
                 var password = PasswordInput(name, workers);
                 if (password.Item3 == false)
                 {
                     return 0;
-  
                 }
                 else
                 {

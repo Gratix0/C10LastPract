@@ -84,6 +84,42 @@ namespace Pract10
                 }
             }
         }
+        public void Read(int id)
+        {
+            List<int> ids = new List<int>();
+
+            //Adding users to the list of ID
+            foreach (ModelOfWorker i in allUsers)
+            {
+                ids.Add(i.id);
+            }
+            ModelOfWorker user = allUsers[ids.IndexOf((id))];
+
+            Console.WriteLine("Info");
+            Console.WriteLine(user.id);
+            Console.WriteLine(user.name);
+            Console.WriteLine(user.surname);
+            Console.WriteLine(user.patronymic);
+
+            Console.WriteLine();
+            Console.WriteLine("Date of Birth");
+            Console.WriteLine(user.start.date);
+            Console.WriteLine(user.start.month);
+            Console.WriteLine(user.start.year);
+            Console.WriteLine();
+            Console.WriteLine("Passport");
+            Console.WriteLine(user.userPassrot.serial);
+            Console.WriteLine(user.userPassrot.number);
+            Console.WriteLine();
+            Console.WriteLine("Others");
+            Console.WriteLine(user.post);
+            Console.WriteLine(user.salary);
+            Console.WriteLine(user.privID);
+            Console.WriteLine();
+
+            Console.WriteLine("Press any button to exit");
+            Console.ReadKey();
+        }
         public void Create()
         {
             List<int> ids = new List<int>();
@@ -94,48 +130,49 @@ namespace Pract10
                 ids.Add(i.id);
             }
 
-            Console.WriteLine("Введите имя");
+            Console.WriteLine("Enter your name");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Введите фамилию");
+            Console.WriteLine("Enter last name");
             string surname = Console.ReadLine();
 
-            Console.WriteLine("Введите отчество");
+            Console.WriteLine("Enter middle name");
             string patronymic = Console.ReadLine();
 
-            Console.WriteLine("Введите дату рождения");
+            Console.WriteLine("Enter date of birth");
             int birthDate = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите месяц");
+            Console.WriteLine("Enter month");
             int birthMonth = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите год");
+            Console.WriteLine("Enter year");
             int birthYear = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите серию паспорта");
+            Console.WriteLine("Enter the passport series");
             int serial = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите номер");
+            Console.WriteLine("Enter number");
             int number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите пароль польвателя");
+            Console.WriteLine("Enter user password");
             string password = Console.ReadLine();
 
-            Console.WriteLine("Введите роль польвателя");
+            Console.WriteLine("Enter user role");
             int atribute = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите почту");
+            Console.WriteLine("Enter email");
             string post = Console.ReadLine();
 
-            Console.WriteLine("Введите зарплату");
+            Console.WriteLine("Enter salary");
             int salary = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите айди пользователя к аккаунту которого хотите привязать рабочего");
-            int privID = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the user ID to whose account you want to link a worker");
+            int privateID = Convert.ToInt32(Console.ReadLine());
             
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Tables.json";
+            
+            string path = Directory.GetCurrentDirectory();
+            int len = path.Length - 17;
+            string json = path.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> idsUsers = new List<int>();
 
@@ -145,7 +182,7 @@ namespace Pract10
                 idsUsers.Add(user.id);
             }
 
-            if (idsUsers.Contains(privID))
+            if (idsUsers.Contains(privateID))
             {
                 ModelOfWorker worker = new ModelOfWorker();
                 
@@ -162,16 +199,16 @@ namespace Pract10
                 worker.userPassrot.number = number;
                 worker.post = post;
                 worker.salary = salary;
-                worker.privID = privID;
+                worker.privID = privateID;
 
                 allUsers.Add(worker);
-                Console.WriteLine("Введите название файла");
+                Console.WriteLine("Enter file name");
                 string filename = Console.ReadLine();
                 Converter.Ser<List<ModelOfWorker>>(allUsers, filename);
             }
             else
             {
-                Console.WriteLine("Такого пользователя для не существует, нажмите любую кнопку для выхода в меню");
+                Console.WriteLine("This user does not exist, press any button to exit the menu");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -180,9 +217,9 @@ namespace Pract10
         public void Delete()
         {
             //Truncating a string to a file with users
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Data.json";
+            string path = Directory.GetCurrentDirectory();
+            int len = path.Length - 17;
+            string json = path.Substring(0, len) + "\\Data.json";
             List<ModelOfWorker> con = Converter.Des<List<ModelOfWorker>>(json);
             List<int> ids = new List<int>();
 
@@ -193,7 +230,7 @@ namespace Pract10
             }
 
 
-            Console.WriteLine("Введите id пользователя, которого хотите удалить");
+            Console.WriteLine("Enter the id of the user you want to delete");
             int id = Convert.ToInt32(Console.ReadLine());
 
             //ID check 
@@ -202,95 +239,57 @@ namespace Pract10
                 ModelOfWorker user = con[ids.IndexOf(id)];
                 con.Remove(user);
 
-                Console.WriteLine("Введите название файла");
+                Console.WriteLine("Enter file name");
                 string filename = Console.ReadLine();
                 Converter.Ser<List<ModelOfWorker>>(con, filename);
 
             }
             else
             {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
+                Console.WriteLine("There is no such user, press any key to exit");
                 Console.ReadKey();
                 Console.Clear();
             }
         }
-
-        public void Read(int id)
-        {
-            List<int> ids = new List<int>();
-
-            //Adding users to the list of ID
-            foreach (ModelOfWorker i in allUsers)
-            {
-                ids.Add(i.id);
-            }
-            ModelOfWorker user = allUsers[ids.IndexOf((id))];
-
-            Console.WriteLine("Информация");
-            Console.WriteLine(user.id);
-            Console.WriteLine(user.name);
-            Console.WriteLine(user.surname);
-            Console.WriteLine(user.patronymic);
-
-            Console.WriteLine();
-            Console.WriteLine("Дата рождения");
-            Console.WriteLine(user.start.date);
-            Console.WriteLine(user.start.month);
-            Console.WriteLine(user.start.year);
-            Console.WriteLine();
-            Console.WriteLine("Паспорт");
-            Console.WriteLine(user.userPassrot.serial);
-            Console.WriteLine(user.userPassrot.number);
-            Console.WriteLine();
-            Console.WriteLine("Остальное");
-            Console.WriteLine(user.post);
-            Console.WriteLine(user.salary);
-            Console.WriteLine(user.privID);
-            Console.WriteLine();
-
-            Console.WriteLine("Нажмите на любую кнопку что бы выйти");
-            Console.ReadKey();
-        }
-
         public void Search()
         {
-            Console.WriteLine("Введите ID");
+            Console.WriteLine("Enter ID");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите имя");
+            Console.WriteLine("Enter name");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Введите фамилию");
+            Console.WriteLine("Enter surname");
             string surname = Console.ReadLine();
 
-            Console.WriteLine("Введите отчество");
+            Console.WriteLine("Enter middle name");
             string patronymic = Console.ReadLine();
 
-            Console.WriteLine("Введите дату рождения");
+            Console.WriteLine("Enter date of birth");
             int birthDate = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите месяц");
+            Console.WriteLine("Enter month");
             int birthMonth = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите год");
+            Console.WriteLine("Enter year");
             int birthYear = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите серию паспорта");
+            Console.WriteLine("Enter the passport series");
             int serial = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите номер");
+            Console.WriteLine("Enter number");
             int number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите пароль польвателя");
+            Console.WriteLine("Enter user password");
             string password = Console.ReadLine();
 
-            Console.WriteLine("Введите роль польвателя");
+            Console.WriteLine("Enter user role");
             int atribute = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите почту");
+            Console.WriteLine("Enter email");
             string post = Console.ReadLine();
 
-            Console.WriteLine("Введите зарплату");
+            Console.WriteLine("Enter salary");
             int salary = Convert.ToInt32(Console.ReadLine());
 
             ModelOfWorker worker = new ModelOfWorker();
@@ -326,12 +325,12 @@ namespace Pract10
                 Console.WriteLine(worker.salary);
                 Console.WriteLine();
 
-                Console.WriteLine("Нажмите на любую кнопку что бы выйти");
+                Console.WriteLine("Press any button to exit");
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
+                Console.WriteLine("There is no such user, press any key to exit");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -347,49 +346,49 @@ namespace Pract10
                 ids.Add(i.id);
             }
 
-            Console.WriteLine("Введите имя");
+            Console.WriteLine("Enter your name");
             string name = Console.ReadLine();
 
-            Console.WriteLine("Введите фамилию");
+            Console.WriteLine("Enter last name");
             string surname = Console.ReadLine();
 
-            Console.WriteLine("Введите отчество");
+            Console.WriteLine("Enter middle name");
             string patronymic = Console.ReadLine();
 
-            Console.WriteLine("Введите дату рождения");
+            Console.WriteLine("Enter date of birth");
             int birthDate = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите месяц");
+            Console.WriteLine("Enter month");
             int birthMonth = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите год");
+            Console.WriteLine("Enter year");
             int birthYear = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите серию паспорта");
+            Console.WriteLine("Enter the passport series");
             int serial = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите номер");
+            Console.WriteLine("Enter number");
             int number = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите пароль польвателя");
+            Console.WriteLine("Enter user password");
             string password = Console.ReadLine();
 
-            Console.WriteLine("Введите роль польвателя");
+            Console.WriteLine("Enter user role");
             int atribute = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите почту");
+            Console.WriteLine("Enter your email");
             string post = Console.ReadLine();
 
-            Console.WriteLine("Введите зарплату");
+            Console.WriteLine("Enter salary");
             int salary = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите айди пользователя привязанного к аккаунту");
+            Console.WriteLine("Enter the user ID associated with the account");
             int privID = Convert.ToInt32(Console.ReadLine());
 
 
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Tables.json";
+            string path = Directory.GetCurrentDirectory();
+            int len = path.Length - 17;
+            string json = path.Substring(0, len) + "\\Tables.json";
             List<UserTable> con = Converter.Des<List<UserTable>>(json);
             List<int> idsUsers = new List<int>();
 
@@ -418,13 +417,13 @@ namespace Pract10
                 worker.privID = privID;
   
                 allUsers.Add(worker);
-                Console.WriteLine("Введите название файла");
+                Console.WriteLine("Enter file name");
                 string filename = Console.ReadLine();
                 Converter.Ser<List<ModelOfWorker>>(allUsers, filename);
             }
             else
             {
-                Console.WriteLine("Такого юзера для привзки не существует, нажмите любую кнопку для выхода в меню");
+                Console.WriteLine("There is no such user for the link, press any button to exit the menu");
                 Console.ReadKey();
                 Console.Clear();
             }

@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "name": "notebook",
-    "sumPrice": 30000,
+    "name": "book",
+    "sumPrice": 50,
     "pribavka": 1
   },
   {
     "id": 2,
-    "name": "mobule",
-    "sumPrice": 24000,
+    "name": "pinaplepen",
+    "sumPrice": 1000000000000000000000000000000000000,
     "pribavka": 1
   }
 ]

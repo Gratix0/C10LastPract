@@ -27,35 +27,6 @@ namespace Pract10
             UpArrow = ConsoleKey.UpArrow,
             DownArrow = ConsoleKey.DownArrow,
         }
-        public void Create()
-        {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Product.json";
-            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
-
-            Console.WriteLine("Введите название");
-            string name = Console.ReadLine();
-            Console.WriteLine("Введите цену");
-            int price = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите количество");
-            int count = Convert.ToInt32(Console.ReadLine());
-
-            int id = con[con.Count - 1].id + 1;
-
-            ALlProduct prod = new ALlProduct();
-            prod.id = id;
-            prod.name = name;
-            prod.price = price;
-            prod.count = count;
-
-            con.Add(prod);
-            allProducts.Insert(id, prod);
-
-            Console.WriteLine("Введите название файла");
-            string filename = Console.ReadLine();
-            Converter.Ser<List<ALlProduct>>(con, filename);
-        }
         
         public void Interface()
         {
@@ -122,41 +93,35 @@ namespace Pract10
                 }
             }
         }
-        
-        public void Delete()
+        public void Create()
         {
-            string Path = Directory.GetCurrentDirectory();
-            int len = Path.Length - 17;
-            string json = Path.Substring(0, len) + "\\Product.json";
+            string startupPath = Directory.GetCurrentDirectory();
+            int len = startupPath.Length - 17;
+            string json = startupPath.Substring(0, len) + "\\Product.json";
             List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
-            List<int> ids = new List<int>();
-            
-            foreach (ALlProduct user in con)
-            {
-                ids.Add(user.id);
-            }
 
+            Console.WriteLine("Enter the title");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter price");
+            int price = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Quantity");
+            int count = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Введите id товара, который хотите удалить");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = con[con.Count - 1].id + 1;
 
-            if (ids.Contains(id))
-            {
-                ALlProduct aLlProduct = con[ids.IndexOf(id)];
-                con.Remove(aLlProduct);
+            ALlProduct prod = new ALlProduct();
+            prod.id = id;
+            prod.name = name;
+            prod.price = price;
+            prod.count = count;
 
-                Console.WriteLine("Введите название файла");
-                string filename = Console.ReadLine();
-                Converter.Ser<List<ALlProduct>>(con, filename);
-            }
-            else
-            {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
-                Console.ReadKey();
-                Console.Clear();
-            }
+            con.Add(prod);
+            allProducts.Insert(id, prod);
+
+            Console.WriteLine("Enter file name");
+            string filename = Console.ReadLine();
+            Converter.Ser<List<ALlProduct>>(con, filename);
         }
-
         public void Read(int id)
         {
             List<int> ids = new List<int>();
@@ -172,19 +137,51 @@ namespace Pract10
             Console.WriteLine(user.count);
             Console.WriteLine();
 
-            Console.WriteLine("Нажмите на любую кнопку что бы выйти");
+            Console.WriteLine("Press any button to exit");
             Console.ReadKey();
         }
+        public void Delete()
+        {
+            string Path = Directory.GetCurrentDirectory();
+            int len = Path.Length - 17;
+            string json = Path.Substring(0, len) + "\\Product.json";
+            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
+            List<int> ids = new List<int>();
+            
+            foreach (ALlProduct user in con)
+            {
+                ids.Add(user.id);
+            }
 
+
+            Console.WriteLine("Enter the id of the product you want to delete");
+            int id = Convert.ToInt32(Console.ReadLine());
+
+            if (ids.Contains(id))
+            {
+                ALlProduct aLlProduct = con[ids.IndexOf(id)];
+                con.Remove(aLlProduct);
+
+                Console.WriteLine("Enter file name");
+                string filename = Console.ReadLine();
+                Converter.Ser<List<ALlProduct>>(con, filename);
+            }
+            else
+            {
+                Console.WriteLine("There is no such user, press any key to exit");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
         public void Search()
         {
-            Console.WriteLine("Введите ID");
+            Console.WriteLine("Enter ID");
             int id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите название товара");
+            Console.WriteLine("Enter product name");
             string name = Console.ReadLine();
-            Console.WriteLine("Введите цену товара");
+            Console.WriteLine("Enter the price of the item");
             int price = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите количество товара на складе");
+            Console.WriteLine("Enter the quantity of goods in stock");
             int count = Convert.ToInt32(Console.ReadLine());
 
             ALlProduct aLlProducts = new ALlProduct();
@@ -202,12 +199,12 @@ namespace Pract10
                 Console.WriteLine(aLlProducts.count);
                 Console.WriteLine();
 
-                Console.WriteLine("Нажмите на любую кнопку что бы выйти");
+                Console.WriteLine("Press any button to exit");
                 Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("Такого пользователя нету, нажмите любую клавишу, что бы выйти");
+                Console.WriteLine("There is no such user, press any key to exit");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -222,11 +219,11 @@ namespace Pract10
                 ids.Add(i.id);
             }
 
-            Console.WriteLine("Введите название товара");
+            Console.WriteLine("Enter product name");
             string name = Console.ReadLine();
-            Console.WriteLine("Введите цену товара");
+            Console.WriteLine("Enter the price of the item");
             int price = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Введите количество товара на складе");
+            Console.WriteLine("Enter the quantity of goods in stock");
             int count = Convert.ToInt32(Console.ReadLine());
 
             ALlProduct aLlProduct = allProducts[ids.IndexOf((id))];
@@ -236,7 +233,7 @@ namespace Pract10
             aLlProduct.count = count;
             
             allProducts.Insert(id, aLlProduct);
-            Console.WriteLine("Введите название файла");
+            Console.WriteLine("Enter file name");
             string filename = Console.ReadLine();
             Converter.Ser<List<ALlProduct>>(allProducts, filename);
         }

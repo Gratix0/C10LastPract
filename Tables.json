@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "login": "Joe",
-    "password": "hz123",
+    "login": "Jon",
+    "password": "0987",
     "role": 1
   },
   {
     "id": 2,
-    "login": "Max",
-    "password": "hz123hz",
+    "login": "Albert",
+    "password": "09878",
     "role": 3 
   }
 ]

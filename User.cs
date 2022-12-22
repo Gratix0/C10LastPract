@@ -13,6 +13,5 @@ namespace Pract10
         public void Update(int id);
         public void Delete();
         public void Search();
-
     }
 }

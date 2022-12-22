@@ -69,7 +69,7 @@ namespace Pract10
                 }
                 else if (key.Key == (ConsoleKey)Post.Minus)
                 {
-                    MInusProd(pose);
+                    DeleteProd(pose);
                 }
                 else if (key.Key == (ConsoleKey)Post.S)
                 {
@@ -77,11 +77,52 @@ namespace Pract10
                 }
             }
         }
+        public void DeleteProd(int id)
+        {
+            string path; int len; string json;
+            
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Product.json";
+            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
+            List<int> ids = new List<int>();
+            
+            foreach (ALlProduct prod in con)
+            {
+                ids.Add(prod.id);
+            }
+
+            ALlProduct aLlProduct = con[ids.IndexOf(id)];
+            if (selledProducts.Count() != 0)
+            {
+                foreach (SellerALlProduct i in selledProducts)
+                {
+                    if (i.id == aLlProduct.id)
+                    {
+                        if (i.count-- >= 0)
+                        {
+                            SellerALlProduct vrem = i;
+                            selledProducts.Remove(i);
+                            vrem.count--;
+                            selledProducts.Add(vrem);
+                        
+                            ALlProduct vrem2 = aLlProduct;
+                            con.Remove(aLlProduct);
+                            vrem.count++;
+                            con.Insert(id, vrem2);
+
+                            allProd = con;
+                        }
+                    }
+                }
+            }
+        }
         public void AddProduct(int id)
         {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Product.json";
+            string path; int len; string json;
+            path = Directory.GetCurrentDirectory();
+            len = path.Length - 17;
+            json = path.Substring(0, len) + "\\Product.json";
             List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
             List<int> ids = new List<int>();
             
@@ -132,51 +173,13 @@ namespace Pract10
                 allProd = con;
             }
         }
-        public void MInusProd(int id)
-        {
-            string startupPath = Directory.GetCurrentDirectory();
-            int len = startupPath.Length - 17;
-            string json = startupPath.Substring(0, len) + "\\Product.json";
-            List<ALlProduct> con = Converter.Des<List<ALlProduct>>(json);
-            List<int> ids = new List<int>();
-            
-            foreach (ALlProduct prod in con)
-            {
-                ids.Add(prod.id);
-            }
-
-            ALlProduct aLlProduct = con[ids.IndexOf(id)];
-            if (selledProducts.Count() != 0)
-            {
-                foreach (SellerALlProduct i in selledProducts)
-                {
-                    if (i.id == aLlProduct.id)
-                    {
-                        if (i.count-- >= 0)
-                        {
-                            SellerALlProduct vrem = i;
-                            selledProducts.Remove(i);
-                            vrem.count--;
-                            selledProducts.Add(vrem);
-                        
-                            ALlProduct vrem2 = aLlProduct;
-                            con.Remove(aLlProduct);
-                            vrem.count++;
-                            con.Insert(id, vrem2);
-
-                            allProd = con;
-                        }
-                    }
-                }
-            }
-        }
         public void Save()
         {
-            Console.WriteLine("Введите название файла для обновленного склада");
+            Console.WriteLine("Enter a file name for the updated warehouse");
             string filename = Console.ReadLine();
             Converter.Ser<List<ALlProduct>>(allProd, filename);
 
-            Console.WriteLine("Введите название файла сохранения проданных товаров");
+            Console.WriteLine("Enter the name of the sold goods save file");
             string filenameSelledProd = Console.ReadLine();
             Converter.Ser<List<SellerALlProduct>>(selledProducts, filenameSelledProd);
             
@@ -191,7 +194,7 @@ namespace Pract10
                 newAcc.adds = 1;
                 buh.Add(newAcc);
             }
-            Console.WriteLine("Введите название файла ");
+            Console.WriteLine("Enter file name ");
             string filenameForBuh = Console.ReadLine();
             Converter.Ser<List<Accounting>>(buh, filenameForBuh);
 
@@ -201,7 +204,7 @@ namespace Pract10
         {
             foreach (ALlProduct i in selledProducts)
             {
-                Console.WriteLine($"Название: {i.name},  Количество: {i.count}  Цена за шт.: {i.price}");
+                Console.WriteLine($"Name: {i.name},  Count: {i.count}  Price(1pc): {i.price}");
             }
         }  
     }

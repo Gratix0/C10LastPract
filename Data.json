@@ -1,23 +1,23 @@
 [
 	{
 		"atribute": 1,
-		"password": "gg123",
+		"password": "0987",
 		"id": 1,
-		"name": "Joe",
-		"surname": "Biden",
-		"patronymic": "Hz",
+		"name": "Alex",
+		"surname": "Jordon",
+		"patronymic": "Zh",
 		"start": {
-			"date": 21,
-			"year": 1988,
+			"date": 26,
+			"year": 1979,
 			"month": 12 
 		},
 		"passport": {
-			"serial": 4115,
-			"number": 871243
+			"serial": 1451,
+			"number": 145115
 
 		},
-		"post": "gg@gmail.com",
-		"salary": 45000,
+		"post": "AlexJordon@gmail.com",
+		"salary": 10000,
 		"privID": 1
 
 	}

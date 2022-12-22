@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "name": "notebook",
-    "price": 15000,
-    "count": 4
+    "name": "Books",
+    "price": 10,
+    "count": 1000
   },
   {
     "id": 2,
-    "name": "computer",
-    "price": 40000,
-    "count": 2
+    "name": "Keyboard",
+    "price": 100,
+    "count": 50
   }
 ]
